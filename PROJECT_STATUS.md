@@ -1,62 +1,52 @@
-# وضعیت پروژه ماه‌ورا
+# Mahvara Storefront — Project Handoff
 
-آخرین به‌روزرسانی: ۲۰ مرداد ۱۴۰۵ / 10 Aug 2026
+**Status:** Released and complete for the version 1.0 product scope  
+**Release:** [v1.0.0](https://github.com/Alivexor/mahvara-store/releases/tag/v1.0.0)  
+**Default branch:** `main`
 
-## کامل‌شده
+## Completion summary
 
-- تحقیق UX و انتخاب هویت مستقل ماه‌ورا
-- Design System، SVG logo/wordmark و ۵ تصویر Original تولیدشده
-- Next.js 16 App Router، TypeScript strict، Tailwind 4 و RTL واقعی
-- Homepage، Catalog URL filters، Search، Product Page، Cart، Checkout
-- Register/Login/Logout، Session DB، Forgot-password token architecture و RBAC
-- Order، Server pricing، Coupon، Inventory reservation، Mock payment و idempotent verify
-- Account، order details، addresses، database Wishlist
-- Admin dashboard، products create/edit/archive، orders status، data sections و Audit Log
-- Blog، صفحات ثابت، Contact/Newsletter، SEO و generic product feed
-- PostgreSQL Prisma schema، migration اولیه و seed ۲۴ محصوله
-- Secure headers، rate limits، validation و error states
-- Dockerfile/Compose، `.env.example`، مستندات و README
-- ۱۱ Unit test، Lint، Type Check، Production Build و Browser QA
+The planned storefront foundation has been implemented and published. The repository contains the source code, original visual assets, database model and migration, development configuration, automated quality workflow, documentation, and screenshots needed to review and continue the project.
 
-## تصمیم‌های معماری
+### Delivered scope
 
-- قیمت‌ها در DB به «تومان صحیح» نگه‌داری می‌شوند؛ Adapter درگاه هنگام نیاز تبدیل رسمی Provider را انجام می‌دهد.
-- Cart مهمان Local Storage است؛ Order فقط از ID/Quantity ورودی استفاده و قیمت را از DB محاسبه می‌کند.
-- Stock در ساخت Order رزرو و فقط در Verify کم می‌شود.
-- Admin route و API هر دو Authorization مستقل دارند.
-- Feed ترب عمداً Generic است تا Contract رسمی Merchant دریافت شود.
-- Integrationهای بدون Credential به Adapter/Env/Mock محدود مانده‌اند.
+- Responsive Persian/RTL storefront, catalogue, product detail pages, cart, checkout, and mock payment journey
+- Server-side pricing, coupon validation, transactional inventory reservation, callback idempotency, and order settlement
+- Registration, login, session management, password hashing, customer account pages, and role-based admin area
+- Product, order, wishlist, newsletter, contact, blog, SEO, sitemap, robots, manifest, and feed features
+- Prisma/PostgreSQL model, migration, seed data, Docker configuration, and environment template
+- English README, contribution guide, security policy, GitHub Actions quality checks, Dependabot, secret scanning, and push protection
 
-## محدودیت‌های محیط ساخت
+## Release verification
 
-- Git و Docker روی ماشین فعلی نصب نبودند؛ Compose واقعاً اجرا نشد.
-- PostgreSQL محلی در دسترس نبود؛ Prisma schema/generate/migration و Build تأیید شدند، اما Seed/DB integration runtime به PostgreSQL نیاز دارد.
-- Email، SMS، درگاه واقعی، Domain، Analytics و اطلاعات شبکه اجتماعی نیازمند مالک و Credential واقعی‌اند.
+The release branch was checked successfully with:
 
-## دستورات اجرا
-
-```powershell
-npm install
-Copy-Item .env.example .env
-npx prisma migrate deploy
-npm run db:seed
-npm run dev
+```text
+npm audit --omit=dev --audit-level=high  → 0 vulnerabilities
+npm run lint                             → passed
+npm run typecheck                        → passed
+npm test                                 → 11 tests passed
+npm run build                            → passed
+npm run qa:browser                       → 11 routes × 2 viewports passed
 ```
 
-Quality:
+The GitHub Actions **Quality gates** workflow is enabled for pushes and pull requests to `main`.
 
-```powershell
-npm run lint
-npm run typecheck
-npm test
-npm run build
-npm run qa:browser
-```
+## Intentionally external to this release
 
-## مرحله بعد Production
+The following require owner-controlled production accounts, contracts, or credentials and are therefore intentionally not bundled as fake integrations:
 
-1. فراهم‌کردن PostgreSQL و اجرای Migration/Seed.
-2. ورود با Admin Demo و Smoke test عملیاتی Create Product → Checkout → Mock Verify.
-3. دریافت Credential و مستندات رسمی درگاه/Email/Analytics از مالک.
-4. جایگزینی Upload محلی با Object Storage و افزودن ویرایش تصویری کامل Admin.
-5. تست امنیت، Accessibility و Performance مستقل پیش از Go-live.
+- a live payment-provider adapter and provider sandbox verification;
+- transactional email or SMS delivery;
+- production domain, DNS, TLS, analytics, and social profile URLs;
+- managed PostgreSQL, object storage, backups, monitoring, and operational alerting;
+- production security, load, accessibility, and real-device testing.
+
+These are deployment operations, not incomplete application code. Their requirements are documented in the [README](README.md#production-checklist).
+
+## Repository closeout
+
+- The repository is public and the canonical source is `main`.
+- The initial release is tagged `v1.0.0`.
+- No credentials, `.env` files, databases, or build output are tracked.
+- Future work should be opened as a new issue or release scope rather than treated as unfinished version 1.0 work.
