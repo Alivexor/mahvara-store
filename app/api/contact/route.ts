@@ -1,0 +1,5 @@
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { hasTrustedOrigin, rateLimit, requestFingerprint } from "@/lib/security";
+import { contactSchema } from "@/schemas/contact";
+export async function POST(request:NextRequest){if(!hasTrustedOrigin(request))return NextResponse.json({message:"درخواست نامعتبر"},{status:403});if(!rateLimit(`contact:${requestFingerprint(request)}`,3,15*60_000).allowed)return NextResponse.json({message:"لطفاً کمی بعد دوباره تلاش کنید."},{status:429});const parsed=contactSchema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({message:parsed.error.issues[0]?.message??"اطلاعات فرم معتبر نیست."},{status:400});if(parsed.data.website)return NextResponse.json({ok:true});try{const {website:_,...data}=parsed.data;void _;await db.contactMessage.create({data});return NextResponse.json({ok:true},{status:201})}catch{return NextResponse.json({message:"ثبت پیام انجام نشد؛ اتصال پایگاه داده را بررسی کنید."},{status:503})}}

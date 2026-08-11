@@ -1,0 +1,3 @@
+"use client";
+import { AlertTriangle } from "lucide-react";
+export default function ErrorPage({reset}:{error:Error&{digest?:string};reset:()=>void}){return <div className="container-shell grid min-h-[65vh] place-items-center py-12 text-center"><div><AlertTriangle className="mx-auto text-brand" size={48}/><h1 className="mt-5 text-2xl font-black">مشکلی پیش آمد</h1><p className="mt-2 max-w-md text-sm leading-7 text-muted">ارتباط یا پردازش این بخش کامل نشد. دوباره تلاش کنید؛ اگر مشکل ادامه داشت با پشتیبانی تماس بگیرید.</p><button className="btn-primary mt-6" onClick={reset}>تلاش دوباره</button></div></div>}

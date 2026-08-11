@@ -1,0 +1,6 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getAdminForApi, unauthorizedAdminResponse } from "@/lib/auth/api-auth";
+import { db } from "@/lib/db";
+import { hasTrustedOrigin } from "@/lib/security";
+import { productCreateSchema } from "@/schemas/product";
+export async function POST(request:NextRequest){if(!hasTrustedOrigin(request))return NextResponse.json({message:"درخواست نامعتبر"},{status:403});const admin=await getAdminForApi();if(!admin)return unauthorizedAdminResponse();const parsed=productCreateSchema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({message:parsed.error.issues[0]?.message??"اطلاعات محصول معتبر نیست."},{status:400});const {stock,lowStockThreshold,imageUrl,...product}=parsed.data;try{const created=await db.product.create({data:{...product,salePrice:product.salePrice??null,status:"ACTIVE",images:{create:{url:imageUrl,alt:`تصویر ${product.name}`}},inventory:{create:{stock,lowStockThreshold}}}});await db.auditLog.create({data:{actorId:admin.id,action:"PRODUCT_CREATED",entityType:"Product",entityId:created.id,metadata:{sku:created.sku}}});return NextResponse.json({ok:true,id:created.id},{status:201})}catch{return NextResponse.json({message:"SKU یا نشانی محصول تکراری است."},{status:409})}}

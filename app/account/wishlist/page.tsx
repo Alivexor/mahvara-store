@@ -1,0 +1,8 @@
+import Image from "next/image";
+import Link from "next/link";
+import { Heart } from "lucide-react";
+import { requireUser } from "@/lib/auth/session";
+import { db } from "@/lib/db";
+import { WishlistButton } from "@/features/catalog/wishlist-button";
+import { formatPrice } from "@/utils/format";
+export default async function WishlistPage(){const user=await requireUser();const items=await db.wishlistItem.findMany({where:{wishlist:{userId:user.id}},include:{product:{include:{brand:true,images:{take:1,orderBy:{sortOrder:"asc"}}}}},orderBy:{createdAt:"desc"}});return <div><h1 className="text-2xl font-black">علاقه‌مندی‌ها</h1>{items.length?<div className="mt-6 grid gap-4 sm:grid-cols-2">{items.map(({product})=><article className="surface-card flex gap-4 p-3" key={product.id}><Link href={`/product/${product.slug}`} className="relative h-28 w-24 shrink-0 overflow-hidden rounded-xl bg-ivory"><Image src={product.images[0]?.url??"/images/category-skincare.png"} alt={product.name} fill sizes="96px" className="object-cover"/></Link><div className="min-w-0 flex-1"><p className="text-xs text-brand">{product.brand.name}</p><h2 className="mt-1 font-black"><Link href={`/product/${product.slug}`}>{product.name}</Link></h2><p className="price-ltr mt-2 text-sm font-bold">{formatPrice(product.salePrice??product.price)}</p><WishlistButton productId={product.id} label initialSaved/></div></article>)}</div>:<div className="surface-card mt-6 grid min-h-72 place-items-center text-center"><div><Heart className="mx-auto text-brand" size={42}/><h2 className="mt-4 font-black">فهرست شما هنوز خالی است</h2><p className="mt-2 text-sm text-muted">محصولات دلخواه را با نشان قلب ذخیره کنید.</p></div></div>}</div>}

@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { BarChart3, BookOpen, Boxes, ImageIcon, Layers3, Package, Percent, ShoppingBag, Star, Tags, Users } from "lucide-react";
+import { requireAdmin } from "@/lib/auth/session";
+export const dynamic = "force-dynamic";
+const links=[["داشبورد","/admin",BarChart3],["محصولات","/admin/products",Boxes],["سفارش‌ها","/admin/orders",ShoppingBag],["دسته‌بندی‌ها","/admin/categories",Layers3],["برندها","/admin/brands",Tags],["کوپن‌ها","/admin/coupons",Percent],["کاربران","/admin/users",Users],["دیدگاه‌ها","/admin/reviews",Star],["مجله","/admin/blog",BookOpen],["بنرها","/admin/banners",ImageIcon]] as const;
+export default async function AdminLayout({children}:{children:React.ReactNode}){const user=await requireAdmin();return <div className="min-h-screen bg-[#f6f3ef]"><div className="container-shell grid gap-6 py-8 lg:grid-cols-[15rem_1fr]"><aside className="surface-card h-fit p-3 lg:sticky lg:top-24"><p className="px-3 pb-3 text-xs font-bold text-muted">پنل مدیریت · {user.firstName}</p><nav>{links.map(([label,href,Icon])=><Link key={href} href={href} className="btn-ghost w-full justify-start text-sm"><Icon size={17}/>{label}</Link>)}</nav><Link href="/" className="btn-secondary mt-4 w-full text-sm"><Package size={16}/> مشاهده فروشگاه</Link></aside><main className="min-w-0">{children}</main></div></div>}

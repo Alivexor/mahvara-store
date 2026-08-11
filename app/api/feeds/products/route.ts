@@ -1,0 +1,4 @@
+import { NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { siteConfig } from "@/config/site";
+export async function GET(){const products=await db.product.findMany({where:{status:"ACTIVE"},include:{brand:true,category:true,inventory:true,images:{orderBy:{sortOrder:"asc"},take:1}}});return NextResponse.json({specification:"mahvara-generic-product-feed-v1",generatedAt:new Date().toISOString(),currency:"IRT",note:"Generic export contract. Map fields only after Torob provides the merchant-specific official schema.",items:products.map(p=>({id:p.id,sku:p.sku,title:p.name,brand:p.brand.name,category:p.category.name,price:p.salePrice??p.price,regularPrice:p.price,availability:(p.inventory?.stock??0)>0,stock:p.inventory?.stock??0,url:`${siteConfig.url}/product/${p.slug}`,image:p.images[0]?`${siteConfig.url}${p.images[0].url}`:null,updatedAt:p.updatedAt.toISOString()}))},{headers:{"Cache-Control":"public, s-maxage=900, stale-while-revalidate=3600"}})}

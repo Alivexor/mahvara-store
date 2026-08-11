@@ -1,0 +1,3 @@
+"use client";
+import { useState } from "react";
+export function PasswordResetRequest(){const [message,setMessage]=useState("");async function submit(fd:FormData){const response=await fetch("/api/auth/forgot-password",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:fd.get("email")})});const data=await response.json() as {message:string};setMessage(data.message)}return <form action={submit} className="mt-6"><label className="field-label" htmlFor="recovery-email">ایمیل حساب</label><input id="recovery-email" name="email" type="email" className="field text-left" dir="ltr" required/><button className="btn-primary mt-4 w-full">درخواست لینک بازیابی</button><p className="mt-3 min-h-6 text-sm font-bold text-brand">{message}</p></form>}

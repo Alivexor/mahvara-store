@@ -1,0 +1,33 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# tests and builds
+/coverage
+/.next
+/out
+/dist
+
+# local data and logs
+*.log
+*.sqlite
+*.sqlite-journal
+/backups
+
+# environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+
+# generated
+/prisma/generated
+*.tsbuildinfo

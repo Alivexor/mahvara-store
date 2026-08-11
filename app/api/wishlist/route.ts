@@ -1,0 +1,9 @@
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { getCurrentUser } from "@/lib/auth/session";
+import { db } from "@/lib/db";
+import { hasTrustedOrigin, rateLimit, requestFingerprint } from "@/lib/security";
+const schema=z.object({productId:z.string().min(1)});
+async function context(request:NextRequest){if(!hasTrustedOrigin(request))return{error:NextResponse.json({message:"درخواست نامعتبر"},{status:403})};if(!rateLimit(`wishlist:${requestFingerprint(request)}`,20,60_000).allowed)return{error:NextResponse.json({message:"تعداد درخواست‌ها زیاد است؛ کمی بعد دوباره تلاش کنید."},{status:429})};const user=await getCurrentUser().catch(()=>null);if(!user)return{error:NextResponse.json({message:"ابتدا وارد شوید"},{status:401})};const parsed=schema.safeParse(await request.json());if(!parsed.success)return{error:NextResponse.json({message:"محصول نامعتبر"},{status:400})};const product=await db.product.findUnique({where:{id:parsed.data.productId},select:{id:true}});if(!product)return{error:NextResponse.json({message:"محصول مورد نظر پیدا نشد."},{status:404})};return{user,productId:product.id}}
+export async function POST(request:NextRequest){const c=await context(request);if("error" in c)return c.error;const wishlist=await db.wishlist.upsert({where:{userId:c.user.id},create:{userId:c.user.id},update:{}});await db.wishlistItem.upsert({where:{wishlistId_productId:{wishlistId:wishlist.id,productId:c.productId}},create:{wishlistId:wishlist.id,productId:c.productId},update:{}});return NextResponse.json({ok:true})}
+export async function DELETE(request:NextRequest){const c=await context(request);if("error" in c)return c.error;await db.wishlistItem.deleteMany({where:{productId:c.productId,wishlist:{userId:c.user.id}}});return NextResponse.json({ok:true})}

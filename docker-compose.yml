@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mahvara
+      POSTGRES_USER: mahvara
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-only-change-me}
+    volumes:
+      - mahvara_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mahvara -d mahvara"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://mahvara:${POSTGRES_PASSWORD:-local-only-change-me}@postgres:5432/mahvara?schema=public
+      AUTH_SECRET: ${AUTH_SECRET:-replace-this-before-any-shared-deployment}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      PAYMENT_PROVIDER: mock
+      PAYMENT_CALLBACK_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}/api/payments/callback
+    ports:
+      - "3000:3000"
+    command: ["sh", "-c", "npx prisma migrate deploy && npm run start"]
+
+volumes:
+  mahvara_postgres_data:

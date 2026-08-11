@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { SearchX } from "lucide-react";
+export default function NotFound(){return <div className="container-shell grid min-h-[65vh] place-items-center py-12 text-center"><div><p className="text-7xl font-black text-brand/20">۴۰۴</p><SearchX className="mx-auto -mt-7 text-brand" size={42}/><h1 className="mt-5 text-2xl font-black">این صفحه پیدا نشد</h1><p className="mt-2 text-sm text-muted">ممکن است نشانی تغییر کرده باشد یا محصول دیگر نمایش داده نشود.</p><div className="mt-6 flex justify-center gap-3"><Link className="btn-primary" href="/">صفحه اصلی</Link><Link className="btn-secondary" href="/shop">فروشگاه</Link></div></div></div>}

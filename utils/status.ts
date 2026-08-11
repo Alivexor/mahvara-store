@@ -1,0 +1,2 @@
+export const orderStatusLabel: Record<string, string> = { PENDING: "در انتظار پرداخت", PAID: "پرداخت‌شده", PROCESSING: "در حال پردازش", SHIPPED: "ارسال‌شده", DELIVERED: "تحویل‌شده", CANCELLED: "لغوشده", REFUNDED: "مرجوع‌شده" };
+export const orderStatusTone: Record<string, string> = { PENDING: "bg-amber-50 text-amber-800", PAID: "bg-emerald-50 text-emerald-800", PROCESSING: "bg-blue-50 text-blue-800", SHIPPED: "bg-indigo-50 text-indigo-800", DELIVERED: "bg-sage/10 text-sage", CANCELLED: "bg-red-50 text-red-700", REFUNDED: "bg-slate-100 text-slate-700" };

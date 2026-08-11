@@ -1,0 +1,4 @@
+import { describe,expect,it } from "vitest";
+import { calculateCoupon,calculateOrderTotals,FREE_SHIPPING_THRESHOLD,STANDARD_SHIPPING } from "@/lib/commerce";
+const percentage={code:"SAVE",type:"percentage" as const,value:20,minimumOrder:1_000_000,maximumDiscount:300_000,usedCount:0,isActive:true};
+describe("محاسبات مالی",()=>{it("سقف تخفیف درصدی را اعمال می‌کند",()=>expect(calculateCoupon(2_000_000,percentage)).toBe(300_000));it("سفارش زیر حداقل مبلغ را رد می‌کند",()=>expect(calculateCoupon(900_000,percentage)).toBe(0));it("کوپن منقضی و پرشده را رد می‌کند",()=>{expect(calculateCoupon(2_000_000,{...percentage,expiresAt:new Date(0)})).toBe(0);expect(calculateCoupon(2_000_000,{...percentage,usageLimit:2,usedCount:2})).toBe(0)});it("ارسال را پس از تخفیف محاسبه می‌کند",()=>{expect(calculateOrderTotals(FREE_SHIPPING_THRESHOLD).shipping).toBe(0);expect(calculateOrderTotals(FREE_SHIPPING_THRESHOLD-1).shipping).toBe(STANDARD_SHIPPING)})});

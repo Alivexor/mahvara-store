@@ -1,0 +1,1 @@
+export default function Loading(){return <div className="container-shell py-12" aria-label="در حال بارگذاری"><div className="h-8 w-48 animate-pulse rounded-lg bg-ivory"/><div className="mt-8 h-96 animate-pulse rounded-3xl bg-ivory"/></div>}

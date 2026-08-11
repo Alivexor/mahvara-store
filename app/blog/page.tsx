@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { blogPosts } from "@/lib/catalog";
+export const metadata:Metadata={title:"مجله زیبایی و مراقبت پوست",description:"راهنماهای کوتاه و مسئولانه برای مراقبت پوست، آرایش و انتخاب محصول.",alternates:{canonical:"/blog"}};
+export default function BlogPage(){return <><Breadcrumbs items={[{label:"مجله ماه‌ورا"}]}/><div className="container-shell pb-20"><header className="max-w-3xl py-6"><p className="eyebrow">مجله ماه‌ورا</p><h1 className="mt-2 text-3xl font-black md:text-4xl">کمتر سردرگم، آگاهانه‌تر انتخاب کنید</h1><p className="mt-4 leading-8 text-muted">محتوای آموزشی بدون وعده‌های قطعی؛ برای ساختن روتینی ساده‌تر و سازگارتر.</p></header><div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{blogPosts.map(post=><article key={post.slug} className="surface-card overflow-hidden"><Link href={`/blog/${post.slug}`} className="relative block aspect-[16/10]"><Image src={post.image} alt={`تصویر مقاله ${post.title}`} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover"/></Link><div className="p-5"><p className="text-xs font-bold text-brand">{post.category} · {post.date}</p><h2 className="mt-2 text-lg font-black leading-8"><Link href={`/blog/${post.slug}`}>{post.title}</Link></h2><p className="mt-2 text-sm leading-7 text-muted">{post.excerpt}</p><Link href={`/blog/${post.slug}`} className="mt-4 inline-flex items-center gap-2 text-sm font-black text-brand">ادامه مطلب <ArrowLeft size={16}/></Link></div></article>)}</div></div></>}

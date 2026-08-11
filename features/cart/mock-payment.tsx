@@ -1,0 +1,13 @@
+"use client";
+
+import { CreditCard, LockKeyhole } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useCart } from "./cart-provider";
+
+export function MockPayment() {
+  const search = useSearchParams(); const router = useRouter(); const { clear } = useCart(); const [loading, setLoading] = useState(false); const [error, setError] = useState("");
+  const authority = search.get("authority"); const order = search.get("order");
+  async function finish(status: "success" | "failed") { if (!authority) return; setLoading(true); const response = await fetch("/api/payments/callback", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ authority, status }) }); const data = await response.json() as { orderNumber?: string; referenceId?: string; message?: string }; if (response.ok) { clear(); router.push(`/payment/success?order=${encodeURIComponent(data.orderNumber ?? order ?? "")}&ref=${encodeURIComponent(data.referenceId ?? "")}`); } else if (response.status === 402) router.push(`/payment/failed?order=${encodeURIComponent(data.orderNumber ?? order ?? "")}`); else { setError(data.message ?? "خطا در بررسی پرداخت"); setLoading(false); } }
+  return <div className="container-shell grid min-h-[70vh] place-items-center py-12"><div className="surface-card w-full max-w-lg overflow-hidden"><div className="bg-[#173f35] p-5 text-white"><div className="flex items-center justify-between"><span className="inline-flex items-center gap-2 font-black"><CreditCard /> درگاه نمایشی ماه‌ورا</span><LockKeyhole size={20} /></div></div><div className="p-6 md:p-8"><p className="rounded-xl bg-amber-50 p-4 text-sm leading-7 text-amber-900">این صفحه شبیه‌ساز پرداخت است و هیچ تراکنش بانکی یا برداشت واقعی انجام نمی‌دهد.</p><dl className="mt-6 space-y-3 text-sm"><div className="flex justify-between"><dt className="text-muted">شماره سفارش</dt><dd dir="ltr" className="font-black">{order ?? "—"}</dd></div><div className="flex justify-between"><dt className="text-muted">شناسه درخواست</dt><dd dir="ltr" className="max-w-56 truncate font-mono text-xs">{authority ?? "—"}</dd></div></dl><div className="mt-7 grid gap-3 sm:grid-cols-2"><button type="button" disabled={loading || !authority} onClick={() => finish("success")} className="btn-primary">شبیه‌سازی پرداخت موفق</button><button type="button" disabled={loading || !authority} onClick={() => finish("failed")} className="btn-secondary">شبیه‌سازی پرداخت ناموفق</button></div><p className="mt-4 min-h-6 text-center text-sm font-bold text-red-700">{error}</p></div></div></div>;
+}
