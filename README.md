@@ -4,6 +4,8 @@
 [![Release](https://img.shields.io/github/v/release/Alivexor/mahvara-store?display_name=tag)](https://github.com/Alivexor/mahvara-store/releases)
 [![License](https://img.shields.io/badge/license-not%20selected-lightgrey)](#license)
 
+**Languages:** [English](README.md) · [فارسی](README.fa.md)
+
 Mahvara is a full-stack, Persian-language storefront for beauty and skincare products. It is designed RTL-first and combines a polished shopping experience with a database-backed commerce workflow, customer accounts, protected administration, and a mock payment flow for safe local development.
 
 > This repository is a product foundation and demo. It must not process real payments or be presented as a live store until the production checklist below has been completed.
