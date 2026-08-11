@@ -25,7 +25,7 @@ Mahvara is a full-stack, Persian-language storefront for beauty and skincare pro
 - Customer account pages for orders, addresses, profile, and wishlist
 - Protected administration for products, orders, and operational data views
 - Static information pages, contact and newsletter forms, blog, SEO metadata, JSON-LD, sitemap, robots, manifest, and product feed
-- Prisma schema, migrations, seed data, Docker setup, automated quality gates, and browser QA coverage
+- Prisma schema, migrations, seed data, automated quality gates, and browser QA coverage
 
 ## Technology
 
@@ -56,7 +56,7 @@ scripts/       Browser QA runner
 
 - Node.js 20.9 or newer
 - npm
-- PostgreSQL 17, or Docker Desktop for the provided Compose setup
+- PostgreSQL 17
 
 ## Local setup
 
@@ -72,19 +72,13 @@ scripts/       Browser QA runner
    Copy-Item .env.example .env
    ```
 
-3. Start PostgreSQL. With Docker, you can start only the database:
-
-   ```bash
-   docker compose up -d postgres
-   ```
-
-4. Update `DATABASE_URL` and generate a unique `AUTH_SECRET` in `.env`.
+3. Start a local PostgreSQL 17 instance and update `DATABASE_URL` in `.env`. Generate a unique `AUTH_SECRET` as well.
 
    ```bash
    openssl rand -base64 32
    ```
 
-5. Generate Prisma Client, apply migrations, and load the sample data.
+4. Generate Prisma Client, apply migrations, and load the sample data.
 
    ```bash
    npm run db:generate
@@ -94,7 +88,7 @@ scripts/       Browser QA runner
 
    On Windows, stop a running `next dev` process before `npm run db:generate`; the development server can hold Prisma's query-engine file open.
 
-6. Start the development server and open [http://localhost:3000](http://localhost:3000).
+5. Start the development server and open [http://localhost:3000](http://localhost:3000).
 
    ```bash
    npm run dev
@@ -141,16 +135,6 @@ npm run qa:browser
 The browser runner checks key routes at desktop and mobile viewports, detects horizontal overflow, reports browser-console errors, and refreshes the home-page screenshots under `docs/screenshots/`.
 
 GitHub Actions runs Prisma Client generation, linting, type checking, unit tests, and a production build on pushes and pull requests targeting `main`.
-
-## Docker
-
-For a containerized application and database:
-
-```bash
-docker compose up --build
-```
-
-Before using this outside a local environment, set a strong `AUTH_SECRET`, a non-default `POSTGRES_PASSWORD`, and the final `NEXT_PUBLIC_APP_URL` in your environment. The application container applies Prisma migrations before starting Next.js.
 
 ## Commerce and payment behavior
 

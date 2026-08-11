@@ -26,7 +26,7 @@
 - حساب کاربری برای سفارش‌ها، نشانی‌ها، پروفایل و علاقه‌مندی‌ها
 - پنل مدیریت محافظت‌شده برای محصولات، سفارش‌ها و داده‌های عملیاتی
 - وبلاگ، تماس با ما، خبرنامه، صفحات اطلاعاتی، SEO، JSON-LD، sitemap، robots و PWA manifest
-- Prisma schema، migration، seed data، Docker، GitHub Actions، Dependabot و تست مرورگر
+- Prisma schema، migration، seed data، GitHub Actions، Dependabot و تست مرورگر
 
 ## فناوری‌ها
 
@@ -61,7 +61,7 @@ docs/          پژوهش، راهنمای برند و اسکرین‌شات‌�
 
 - Node.js نسخهٔ 20.9 یا جدیدتر
 - npm
-- PostgreSQL 17، یا Docker Desktop برای استفاده از Compose
+- PostgreSQL 17
 
 ### مراحل راه‌اندازی
 
@@ -77,19 +77,13 @@ docs/          پژوهش، راهنمای برند و اسکرین‌شات‌�
    Copy-Item .env.example .env
    ```
 
-3. PostgreSQL را اجرا کن. با Docker:
-
-   ```bash
-   docker compose up -d postgres
-   ```
-
-4. در `.env`، مقدار `DATABASE_URL` را بررسی کن و برای `AUTH_SECRET` یک مقدار تصادفی و طولانی قرار بده:
+3. یک نمونهٔ محلی PostgreSQL 17 اجرا کن، سپس مقدار `DATABASE_URL` را در `.env` بررسی کن و برای `AUTH_SECRET` یک مقدار تصادفی و طولانی قرار بده:
 
    ```bash
    openssl rand -base64 32
    ```
 
-5. Prisma Client، migration و داده‌های نمایشی را آماده کن:
+4. Prisma Client، migration و داده‌های نمایشی را آماده کن:
 
    ```bash
    npm run db:generate
@@ -97,7 +91,7 @@ docs/          پژوهش، راهنمای برند و اسکرین‌شات‌�
    npm run db:seed
    ```
 
-6. برنامه را اجرا کن و به `http://localhost:3000` برو:
+5. برنامه را اجرا کن و به `http://localhost:3000` برو:
 
    ```bash
    npm run dev
@@ -139,16 +133,6 @@ npm run qa:browser
 ```
 
 این تست 11 مسیر کلیدی را در دو اندازهٔ صفحه بررسی می‌کند، خطای console و horizontal overflow را گزارش می‌دهد و اسکرین‌شات‌های صفحهٔ اصلی را تازه می‌کند.
-
-## Docker
-
-برای اجرای هم‌زمان برنامه و دیتابیس:
-
-```bash
-docker compose up --build
-```
-
-پیش از هر استفادهٔ غیرمحلی، حتماً `AUTH_SECRET`، رمز PostgreSQL و `NEXT_PUBLIC_APP_URL` را با مقادیر واقعی و امن جایگزین کن.
 
 ## وضعیت نسخهٔ 1.0
 

@@ -14,7 +14,7 @@ The planned storefront foundation has been implemented and published. The reposi
 - Server-side pricing, coupon validation, transactional inventory reservation, callback idempotency, and order settlement
 - Registration, login, session management, password hashing, customer account pages, and role-based admin area
 - Product, order, wishlist, newsletter, contact, blog, SEO, sitemap, robots, manifest, and feed features
-- Prisma/PostgreSQL model, migration, seed data, Docker configuration, and environment template
+- Prisma/PostgreSQL model, migration, seed data, and environment template
 - English README, contribution guide, security policy, GitHub Actions quality checks, Dependabot, secret scanning, and push protection
 
 ## Release verification
