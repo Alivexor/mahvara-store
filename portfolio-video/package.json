@@ -1,0 +1,24 @@
+{
+  "name": "mahvara-portfolio-video",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "capture": "node scripts/capture.mjs",
+    "capture:v2": "node scripts/capture-v2.mjs",
+    "audio": "node scripts/generate-audio.mjs",
+    "audio:v2": "node scripts/generate-audio-v2.mjs",
+    "sync-public": "node scripts/sync-public.mjs",
+    "studio": "npm run sync-public && remotion studio source/index.jsx --public-dir=public --browser-executable=\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\"",
+    "render": "npm run sync-public && remotion render source/index.jsx MAHVARA-Portfolio renders/MAHVARA-Portfolio-Final.mp4 --public-dir=public --browser-executable=\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --codec=h264 --crf=16 --pixel-format=yuv420p --audio-codec=aac --audio-bitrate=320k --concurrency=50%",
+    "render:v2": "npm run render:v2:remotion && npm run standardize:v2",
+    "render:v2:remotion": "npm run sync-public && remotion render source-v2/index.jsx MAHVARA-Portfolio-V2 renders/MAHVARA-Portfolio-V2-remotion.mp4 --public-dir=public --browser-executable=\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --codec=h264 --crf=15 --pixel-format=yuv420p --audio-codec=aac --audio-bitrate=320k --concurrency=50%",
+    "standardize:v2": "ffmpeg -hide_banner -y -i renders/MAHVARA-Portfolio-V2-remotion.mp4 -vf scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p -c:v libx264 -preset slow -crf 14 -profile:v high -level:v 4.2 -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -c:a copy -movflags +faststart renders/MAHVARA-Portfolio-V2.mp4",
+    "poster:v2": "npm run sync-public && remotion still source-v2/index.jsx MAHVARA-Karlancer-Poster renders/MAHVARA-Karlancer-Poster.png --public-dir=public --browser-executable=\"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --frame=0 --image-format=png"
+  },
+  "dependencies": {
+    "@remotion/cli": "latest",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "latest"
+  }
+}

@@ -1,0 +1,32 @@
+# Local dependencies, runtime output and diagnostic artifacts
+node_modules/
+public/
+logs/
+quality-control/
+
+# The repository contains the polished V2 deliverables only.
+renders/*
+!renders/MAHVARA-Portfolio-V2.mp4
+!renders/MAHVARA-Karlancer-Poster.png
+
+# Keep only the sound design and captures required by V2.
+audio/*
+!audio/mahvara-v2-score.wav
+!audio/ui-hover.wav
+!audio/ui-click-v2.wav
+!audio/ui-pop.wav
+!audio/ui-confirm.wav
+!audio/ui-sweep-v2.wav
+!audio/ui-impact-v2.wav
+!audio/digital-rise-v2.wav
+
+captures/*
+!captures/v2/
+!captures/v2/*.webm
+!captures/v2/*.png
+
+# V1 is kept locally as an archive; GitHub documents the new V2 package.
+source/
+STORYBOARD.md
+scripts/capture.mjs
+scripts/generate-audio.mjs
