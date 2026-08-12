@@ -10,9 +10,26 @@
 
 > این پروژه نسخهٔ 1.0 خود را منتشر کرده است. درگاه پرداخت موجود، شبیه‌ساز امن برای توسعه است و تا زمان اتصال credentialهای مالک، هیچ پرداخت واقعی انجام نمی‌شود.
 
-| نمایش دسکتاپ | نمایش موبایل |
-| --- | --- |
-| ![صفحهٔ اصلی ماه‌ورا در دسکتاپ](docs/screenshots/home-desktop.png) | ![صفحهٔ اصلی ماه‌ورا در موبایل](docs/screenshots/home-mobile.png) |
+## پیش‌نمایش پروژه
+
+### تجربهٔ دسکتاپ
+
+<p align="center">
+  <img src="docs/screenshots/portfolio-home-desktop.png" width="48%" alt="صفحهٔ اصلی ماه‌ورا در دسکتاپ">
+  <img src="docs/screenshots/portfolio-product-desktop.png" width="48%" alt="صفحهٔ محصول ماه‌ورا در دسکتاپ">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/portfolio-admin-desktop.png" width="74%" alt="پنل مدیریت سفارش‌های ماه‌ورا در دسکتاپ">
+</p>
+
+### تجربهٔ موبایل
+
+<p align="center">
+  <img src="docs/screenshots/portfolio-mobile-home.png" width="29%" alt="صفحهٔ اصلی ماه‌ورا در موبایل">
+  <img src="docs/screenshots/portfolio-mobile-product.png" width="29%" alt="صفحهٔ محصول ماه‌ورا در موبایل">
+  <img src="docs/screenshots/portfolio-mobile-cart.png" width="29%" alt="سبد خرید ماه‌ورا در موبایل">
+</p>
 
 ## ویدیوی نمونه‌کار
 
