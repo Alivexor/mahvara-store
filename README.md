@@ -10,9 +10,11 @@ Mahvara is a full-stack, Persian-language storefront for beauty and skincare pro
 
 > This repository is a product foundation and demo. It must not process real payments or be presented as a live store until the production checklist below has been completed.
 
-| Desktop | Mobile |
-| --- | --- |
-| ![Mahvara home page on desktop](docs/screenshots/home-desktop.png) | ![Mahvara home page on mobile](docs/screenshots/home-mobile.png) |
+| Desktop | Mobile | Portfolio video |
+| --- | --- | --- |
+| ![Mahvara home page on desktop](docs/screenshots/home-desktop.png) | ![Mahvara home page on mobile](docs/screenshots/home-mobile.png) | [<img src="portfolio-video/renders/MAHVARA-Karlancer-Poster.png" width="320" alt="MAHVARA portfolio video poster">](portfolio-video/renders/MAHVARA-Portfolio-V2.mp4) |
+
+Watch the [MAHVARA Portfolio Video V2](portfolio-video/renders/MAHVARA-Portfolio-V2.mp4) to see the complete customer-to-admin commerce flow in motion.
 
 ## Highlights
 

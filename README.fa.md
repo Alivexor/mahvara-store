@@ -10,9 +10,11 @@
 
 > این پروژه نسخهٔ 1.0 خود را منتشر کرده است. درگاه پرداخت موجود، شبیه‌ساز امن برای توسعه است و تا زمان اتصال credentialهای مالک، هیچ پرداخت واقعی انجام نمی‌شود.
 
-| نمایش دسکتاپ | نمایش موبایل |
-| --- | --- |
-| ![صفحهٔ اصلی ماه‌ورا در دسکتاپ](docs/screenshots/home-desktop.png) | ![صفحهٔ اصلی ماه‌ورا در موبایل](docs/screenshots/home-mobile.png) |
+| نمایش دسکتاپ | نمایش موبایل | ویدیوی نمونه‌کار |
+| --- | --- | --- |
+| ![صفحهٔ اصلی ماه‌ورا در دسکتاپ](docs/screenshots/home-desktop.png) | ![صفحهٔ اصلی ماه‌ورا در موبایل](docs/screenshots/home-mobile.png) | [<img src="portfolio-video/renders/MAHVARA-Karlancer-Poster.png" width="320" alt="پوستر ویدیوی نمونه‌کار ماه‌ورا">](portfolio-video/renders/MAHVARA-Portfolio-V2.mp4) |
+
+برای دیدن جریان کامل خرید تا مدیریت سفارش، [ویدیوی نمونه‌کار MAHVARA V2](portfolio-video/renders/MAHVARA-Portfolio-V2.mp4) را پخش کنید.
 
 ## قابلیت‌ها
 
